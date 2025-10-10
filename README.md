@@ -26,7 +26,7 @@ or the shorter way
 curl -sL sihr.me/setup.sh | bash
 ```
 
-## manual configuration checklist
+## my configuration checklist
 
 after the script is done, the following options to be configured:
 
@@ -37,7 +37,7 @@ after the script is done, the following options to be configured:
 
 ### hardware (pc)
 - disable cursor acceleration.
-- configured power management.
+- configure power management.
 
 ### hardware (laptop)
 - invert the touchpad scroll direction for 'natural scrolling'.
@@ -46,7 +46,7 @@ after the script is done, the following options to be configured:
 ### appearance
 - set the global display scale to 90%.
 - edit the application menu to hide unwanted entries.
-- reduce the default cursor size.
+- cuztomize the cursor.
 - set a user profile picture.
 - customize taskbar applications.
 - configure the system tray to show only the icons i need.
