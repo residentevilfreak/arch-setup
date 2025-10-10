@@ -10,7 +10,7 @@ it's built for my own use, but hosted publicly on github so i can easily pull th
 
 ## automated setup
 
-to run tge script, use the following command:
+to run the script, use the following command:
 
 ```sh
 curl -sl sihr.me/setup.sh | bash
