@@ -23,7 +23,7 @@ chmod +x setup.sh
 or the shorter way
 
 ```sh
-curl -sl sihr.me/setup.sh | bash
+curl -sL sihr.me/setup.sh | bash
 ```
 
 ## manual configuration checklist
