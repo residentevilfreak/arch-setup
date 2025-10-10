@@ -134,5 +134,6 @@ EOF
 
 echo "------------------------------------------"
 echo ">>> setup complete! <<<"
-echo "please reboot to apply all changes."
+echo "reboot to apply all changes."
+echo "run sudo shutdown now to shutdown"
 echo "------------------------------------------"
