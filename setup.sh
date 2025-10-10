@@ -135,5 +135,5 @@ EOF
 echo "------------------------------------------"
 echo ">>> setup complete! <<<"
 echo "reboot to apply all changes."
-echo "run sudo shutdown now to shutdown"
+echo "run 'sudo shutdown now' to shutdown"
 echo "------------------------------------------"
