@@ -52,7 +52,7 @@ after the script is done, the following options to be configured:
 - configure the system tray to show only the icons i need.
 - customize the digital clock.
 - apply a global dark theme.
-- set a new desktop and lock screen wallpaper.
+- set new wallpapers.
 - disable the startup splash screen.
-- turn off the floating panel.
+- customize the panel.
 - apply an sddm theme.
