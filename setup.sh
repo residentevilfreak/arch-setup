@@ -18,6 +18,7 @@ PACMAN_PACKAGES=(
     # essentials
     amd-ucode
     ark
+    base-devel
     btop
     dnsmasq
     dolphin
