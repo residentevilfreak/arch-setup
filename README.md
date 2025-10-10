@@ -17,7 +17,7 @@ sudo pacman -Syu --needed git --noconfirm
 git clone https://github.com/residentevilfreak/arch-setup
 cd arch-setup
 chmod +x setup.sh
-./setup.sh
+sudo ./setup.sh
 ```
 
 or the shorter way
