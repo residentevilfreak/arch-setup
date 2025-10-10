@@ -10,7 +10,17 @@ it's built for my own use, but hosted publicly on github so i can easily pull th
 
 ## automated setup
 
-to run the script, use the following command:
+to run the script, do the following:
+
+```
+sudo pacman -Syu --needed git --noconfirm
+git clone https://github.com/residentevilfreak/arch-setup
+cd arch-setup
+chmod +x setup.sh
+./setup.sh
+```
+
+or the shorter way
 
 ```sh
 curl -sl sihr.me/setup.sh | bash
