@@ -10,11 +10,11 @@
 # exit immediately if a command fails
 set -e
 
-# --- PACKAGE LISTS ---
+# --- package lists ---
 # add or remove packages here as you see fit.
 
 # packages from official arch repositories
-PACMAN_PACKAGES=(
+pacman_packages=(
     # essentials
     amd-ucode
     ark
@@ -59,11 +59,11 @@ PACMAN_PACKAGES=(
     wine
     mangohud
     gamemode
-    nvidia-settings 
+    nvidia-settings
 )
 
 # packages from the arch user repository (aur)
-AUR_PACKAGES=(
+aur_packages=(
     vesktop
     spotify
     music-presence-bin
@@ -71,33 +71,47 @@ AUR_PACKAGES=(
 )
 
 
-# --- SCRIPT EXECUTION ---
+# --- script execution ---
 
 echo ">>> starting arch linux post-install setup..."
 
-# step 1: install pacman packages
+# step 1: check for and install pacman packages
+echo ">>> checking for already installed packages..."
+already_installed=()
+for pkg in "${pacman_packages[@]}"; do
+    if pacman -q "$pkg" &> /dev/null; then
+        already_installed+=("$pkg")
+    fi
+done
+
 echo ">>> updating system and installing packages from official repositories..."
-sudo pacman -Syu --needed --noconfirm "${PACMAN_PACKAGES[@]}"
+sudo pacman -Syu --needed --noconfirm "${pacman_packages[@]}"
+
+# report which packages were already installed
+if [ ${#already_installed[@]} -gt 0 ]; then
+    echo "---"
+    echo ">>> the following packages were already installed and were skipped:"
+    for pkg in "${already_installed[@]}"; do
+        echo "    - $pkg"
+    done
+    echo "---"
+fi
 
 
 # step 2: install aur helper (paru)
-if ! command -v paru &> /dev/null; then
-    echo ">>> installing aur helper 'paru'..."
-    temp_dir=$(mktemp -d)
-    cd "$temp_dir"
-    git clone https://aur.archlinux.org/paru.git
-    cd paru
-    makepkg -si --noconfirm
-    cd ~
-    rm -rf "$temp_dir"
-else
-    echo ">>> aur helper 'paru' is already installed."
-fi
+echo ">>> installing aur helper 'paru'..."
+temp_dir=$(mktemp -d)
+cd "$temp_dir"
+git clone https://aur.archlinux.org/paru.git
+cd paru
+makepkg -si --noconfirm
+cd ~
+rm -rf "$temp_dir"
 
 
 # step 3: install aur packages
 echo ">>> installing packages from the aur..."
-paru -S --needed --noconfirm "${AUR_PACKAGES[@]}"
+paru -S --needed --noconfirm "${aur_packages[@]}"
 
 
 # step 4: configure grub
@@ -107,19 +121,15 @@ sudo grub-mkconfig -o /boot/grub/grub.cfg
 
 
 # step 5: change default shell to fish
-if [ "$SHELL" != "/usr/bin/fish" ]; then
-    echo ">>> changing default shell to fish for user $USER..."
-    chsh -s "$(which fish)"
-    echo "shell changed to fish. please log out and back in for it to take effect."
-else
-    echo ">>> default shell is already fish."
-fi
+echo ">>> changing default shell to fish for user $user..."
+chsh -s "$(which fish)"
+echo "shell changed to fish. please log out and back in for it to take effect."
 
 
 # step 6: configure fish shell
 echo ">>> creating fish configuration..."
 mkdir -p ~/.config/fish
-cat <<'EOF' > ~/.config/fish/config.fish
+cat <<'eof' > ~/.config/fish/config.fish
 # run fastfetch on startup if the shell is interactive
 if status is-interactive
     fastfetch
@@ -130,10 +140,10 @@ set fish_greeting
 
 # create aliases
 alias fetch="fastfetch"
-EOF
+eof
 
 echo "------------------------------------------"
 echo ">>> setup complete! <<<"
 echo "reboot to apply all changes."
-echo "run 'sudo shutdown now' to shutdown"
+echo "run 'sudo systemctl reboot' to reboot"
 echo "------------------------------------------"
