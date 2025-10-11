@@ -2,6 +2,7 @@
 #
 # fish.sh - a script to automate post-installation tasks for my arch linux installs.
 # this script installs essential packages, an aur helper (paru), aur packages,
+# and configures the fish shell.
 #
 
 # --- color codes for output ---
@@ -31,7 +32,7 @@ fi
 
 # --- package lists ---
 PACMAN_PACKAGES=(
-    # system essentials
+    # system essentials & drivers
     amd-ucode
     base-devel
     btop
@@ -48,7 +49,7 @@ PACMAN_PACKAGES=(
     wget
     xdg-utils
 
-    # utilities
+    # desktop environment (kde plasma) & utilities
     plasma-meta
     ark
     dolphin
@@ -59,12 +60,12 @@ PACMAN_PACKAGES=(
     noto-fonts
     noto-fonts-emoji
     
-    # terminal tools
+    # shell & terminal tools
     fish
     fastfetch
     nano
 
-    # file management
+    # file management & compression
     unrar
 
     # applications
@@ -90,7 +91,7 @@ AUR_PACKAGES=(
     vesktop
     spotify
     music-presence-bin
-    surfshark-client-bin # using -bin for pre-compiled version, often more stable
+    surfshark-client
 )
 
 # --- function to install packages from official repositories ---
@@ -111,7 +112,7 @@ install_pacman_packages() {
         done
     fi
     
-    log "updating package database and installing packages from official repositories..."
+    log "installing packages from official repositories..."
     sudo pacman -Syu --noconfirm --needed "${PACMAN_PACKAGES[@]}"
     success "pacman packages installed."
 }
@@ -141,7 +142,7 @@ install_aur_packages() {
 
 # --- function to configure grub ---
 configure_grub() {
-    log "configuring grub to detect other operating systems..."
+    log "configuring grub..."
     sudo sed -i 's/#GRUB_DISABLE_OS_PROBER=false/GRUB_DISABLE_OS_PROBER=false/' /etc/default/grub
     sudo grub-mkconfig -o /boot/grub/grub.cfg
     success "grub configuration updated."
@@ -151,36 +152,41 @@ configure_grub() {
 configure_fish() {
     log "configuring fish as the default shell..."
 
-    # change shell for the current user
-    if [[ "$SHELL" != */bin/fish ]]; then
+    # change shell for the current user to fish
+    if [ "$SHELL" != "$(which fish)" ]; then
         chsh -s "$(which fish)"
         log "default shell changed to fish."
     else
         log "fish is already the default shell."
     fi
 
-    # create fish config directory and config file
-    log "creating fish config at ~/.config/fish/config.fish..."
+    # create fish config directory if it doesn't exist
+    log "creating fish configuration directory..."
     mkdir -p ~/.config/fish
-    {
-        echo '# --- custom configuration added by script ---'
-        echo ''
-        echo '# turn off the greeting'
-        echo 'set -g fish_greeting'
-        echo ''
-        echo '# alias for fastfetch'
-        echo 'alias fetch="fastfetch"'
-        echo ''
-        echo '# run fastfetch in interactive sessions'
-        echo 'if status is-interactive'
-        echo '    fastfetch'
-        echo 'end'
-        echo ''
-        echo '# --- end of custom configuration ---'
-    } > ~/.config/fish/config.fish
 
-    success "fish configured to disable greeting, run fastfetch on startup, and use a 'fetch' alias."
+    # create or append to config.fish with the specified settings
+    log "adding custom configuration to ~/.config/fish/config.fish..."
+    cat <<'EOF' >> ~/.config/fish/config.fish
+
+# --- custom configuration added by script ---
+
+# 1. run fastfetch if the shell is interactive
+if status is-interactive
+    fastfetch
+end
+
+# 2. turn off the fish greeting
+set -U fish_greeting
+
+# 3. add the alias 'fetch' for 'fastfetch'
+alias fetch="fastfetch"
+
+# --- end of custom configuration ---
+EOF
+
+    success "fish configured."
 }
+
 
 # --- main execution ---
 main() {
