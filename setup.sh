@@ -13,43 +13,34 @@ PACMAN_PKGS=(
   wine mangohud gamemode nvidia-settings
 )
 
-# check which packages are already installed
-echo -e "\n=== checking installed packages ==="
-for pkg in "${PACMAN_PKGS[@]}"; do
-  if pacman -Q "$pkg" &>/dev/null; then
-    echo "✓ $pkg (already installed)"
-  fi
-done
-
 # install pacman packages
 echo -e "\n=== installing pacman packages ==="
-sudo pacman -S --noconfirm "${PACMAN_PKGS[@]}"
+sudo pacman -Syu --needed --noconfirm "${PACMAN_PKGS[@]}"
 
 # install paru
-if ! command -v paru &>/dev/null; then
-  echo -e "\n=== installing paru ==="
-  git clone https://aur.archlinux.org/paru.git /tmp/paru
-  cd /tmp/paru
-  makepkg -si --noconfirm
-  cd -
-  rm -rf /tmp/paru
-fi
+echo -e "\n=== installing paru ==="
+git clone https://aur.archlinux.org/paru.git /tmp/paru
+cd /tmp/paru
+makepkg -si --noconfirm
+cd -
+rm -rf /tmp/paru
 
-# install aur packages with paru
+# install aur packages
 echo -e "\n=== installing aur packages ==="
-paru -S --noconfirm vesktop spotify music-presence-bin surfshark-client
+paru -S vesktop spotify music-presence-bin surfshark-client
 
 # configure grub
 echo -e "\n=== configuring grub ==="
 sudo sed -i 's/#GRUB_DISABLE_OS_PROBER=false/GRUB_DISABLE_OS_PROBER=false/' /etc/default/grub
 sudo grub-mkconfig -o /boot/grub/grub.cfg
 
-# set fish as shell
+# set fish as default shell
 echo -e "\n=== setting fish as default shell ==="
 chsh -s "$(which fish)"
 
-# configure fish
+# configure fish shell
 echo -e "\n=== configuring fish ==="
+mkdir -p ~/.config/fish
 cat > ~/.config/fish/config.fish << 'EOF'
 if status is-interactive
     fastfetch
