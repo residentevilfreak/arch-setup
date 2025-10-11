@@ -93,7 +93,7 @@ AUR_PACKAGES=(
     vesktop
     spotify
     music-presence-bin
-    surfshark-client-bin # using -bin for pre-compiled version, often more stable
+    surfshark-client
 )
 
 # --- function to install packages from official repositories ---
@@ -114,7 +114,7 @@ install_pacman_packages() {
         done
     fi
     
-    log "updating package database and installing packages from official repositories..."
+    log "installing packages from official repositories..."
     sudo pacman -Syu --noconfirm --needed "${PACMAN_PACKAGES[@]}"
     success "pacman packages installed."
 }
@@ -144,7 +144,7 @@ install_aur_packages() {
 
 # --- function to configure grub ---
 configure_grub() {
-    log "configuring grub to detect other operating systems..."
+    log "configuring grub..."
     sudo sed -i 's/#GRUB_DISABLE_OS_PROBER=false/GRUB_DISABLE_OS_PROBER=false/' /etc/default/grub
     sudo grub-mkconfig -o /boot/grub/grub.cfg
     success "grub configuration updated."
@@ -157,7 +157,7 @@ configure_zsh() {
     # change shell for the current user
     if [ "$SHELL" != "/bin/zsh" ]; then
         chsh -s "$(which zsh)"
-        log "default shell changed to zsh. this will take effect on the next login."
+        log "default shell changed to zsh."
     else
         log "zsh is already the default shell."
     fi
@@ -178,7 +178,7 @@ configure_zsh() {
         echo '# --- end of custom configuration ---'
     } >> ~/.zshrc
 
-    success "zsh configured with auto-suggestions, syntax highlighting, and a 'fetch' alias."
+    success "zsh configured."
 }
 
 # --- main execution ---
