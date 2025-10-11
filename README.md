@@ -1,45 +1,60 @@
-# my arch setup
+# arch-setup
 
-my personal scripts and notes for a minimal and clean arch linux installation.
+my personal scripts and notes for a minimal and clean arch linux installation. 
 
-## about this repo
+this repository holds the script i use for setting up a fresh arch linux system. the goal is to quickly build a clean environment. it's built for my own use, but hosted publicly on github so i can easily pull the script.
 
-this repository holds the automation script i use for setting up a fresh arch linux system. the goal is to quickly build a clean environment using kde plasma.
+## getting started
 
-it's built for my own use, but hosted publicly on github so i can easily pull the script from anywhere.
+the setup script can be ran using one of two methods below.
 
-## automated setup
+> it is generally not recommended to run scripts directly from the internet via curl without first reviewing them. since this is my own script, i don't mind running it this way.
 
-to run the script, do the following:
+---
 
-```
-sudo pacman -Syu --needed git --noconfirm
-git clone https://github.com/residentevilfreak/arch-setup
-cd arch-setup
+### method 1: one-liner via curl
 
-## for zsh
-chmod +x zsh.sh
-sudo ./zsh.sh
+this method downloads and runs the script in a single command.
 
-## for fish
-chmod +x fish.sh
-sudo ./fish.sh
+* for zsh:
+    ```bash
+    curl -sL sihr.me/zsh.sh | bash
+    ```
 
-```
+* for fish:
+    ```bash
+    curl -sL sihr.me/fish.sh | bash
+    ```
+---
 
-or the shorter way
+### method 2: clone the repository
 
-```
-## for zsh
-curl -sL sihr.me/zsh.sh | bash
+this method allows the scripts to be inspected before running them.
 
-## for fish
-curl -sL sihr.me/fish.sh | bash
-```
+1.  **install git and clone the repository:**
 
-## my configuration checklist
+    ```bash
+    sudo pacman -Syu --needed git --noconfirm
+    git clone https://github.com/residentevilfreak/arch-setup
+    cd arch-setup
+    ```
+    
 
-after the script is done, the following options to be configured:
+2. **run the scripts:**
+
+* for zsh:
+    ```bash
+    chmod +x zsh.sh
+    ./zsh.sh
+    ```
+
+* for fish:
+    ```bash
+    chmod +x fish.sh
+    ./fish.sh
+    ```
+
+## post script configuration checklist
 
 ### behavior
 - configure spectacle's settings.
