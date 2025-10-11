@@ -3,43 +3,30 @@ set -e
 
 echo "=== arch linux setup script ==="
 
-# pacman packages
 PACMAN_PKGS=(
   amd-ucode base-devel btop dnsmasq iwd hostapd openssh pacman-contrib
-  power-profiles-daemon reflector smartmontools os-prober git wget xdg-utils
+  power-profiles-daemon reflector smartmontools os-prober git sddm wget xdg-utils
   plasma-meta ark dolphin kate kio-admin konsole packagekit-qt6 noto-fonts
   noto-fonts-emoji fastfetch nano fish unrar firefox mpv
   gwenview filelight filezilla obs-studio qbittorrent bitwarden steam lutris
   wine mangohud gamemode nvidia-settings
 )
 
-# install pacman packages
-echo -e "\n=== installing pacman packages ==="
-sudo pacman -S --noconfirm "${PACMAN_PKGS[@]}"
+sudo pacman -S --needed "${PACMAN_PKGS[@]}"
 
-# install paru
-echo -e "\n=== installing paru ==="
 git clone https://aur.archlinux.org/paru.git /tmp/paru
 cd /tmp/paru
-makepkg -si --noconfirm
+makepkg -si 
 cd -
 rm -rf /tmp/paru
 
-# install aur packages
-echo -e "\n=== installing aur packages ==="
-paru -S --noconfirm vesktop spotify music-presence-bin surfshark-client
+paru -S vesktop spotify music-presence-bin surfshark-client
 
-# configure grub
-echo -e "\n=== configuring grub ==="
-sudo sed -i 's/#GRUB_DISABLE_OS_PROBER=false/GRUB_DISABLE_OS_PROBER=false/' /etc/default/grub
+sudo sed -i -e 's/^#GRUB_DISABLE_OS_PROBER=false/GRUB_DISABLE_OS_PROBER=false/' -e 's/^GRUB_TIMEOUT=.*/GRUB_TIMEOUT=-1/' /etc/default/grub
 sudo grub-mkconfig -o /boot/grub/grub.cfg
 
-# set fish as default shell
-echo -e "\n=== setting fish as default shell ==="
 chsh -s "$(which fish)"
 
-# configure fish shell
-echo -e "\n=== configuring fish ==="
 mkdir -p ~/.config/fish
 cat > ~/.config/fish/config.fish << 'EOF'
 if status is-interactive
@@ -51,4 +38,8 @@ set fish_greeting
 alias fetch='fastfetch'
 EOF
 
-echo -e "\n=== setup complete! ==="
+sudo systemctl enable sddm.service
+sudo systemctl enable power-profiles-daemon.service
+sudo systemctl enable iwd.service
+
+echo "=== setup complete! ==="
