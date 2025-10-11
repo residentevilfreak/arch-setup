@@ -15,7 +15,7 @@ PACMAN_PKGS=(
 
 # install pacman packages
 echo -e "\n=== installing pacman packages ==="
-sudo pacman -Syu --needed --noconfirm "${PACMAN_PKGS[@]}"
+sudo pacman -S --noconfirm "${PACMAN_PKGS[@]}"
 
 # install paru
 echo -e "\n=== installing paru ==="
@@ -27,7 +27,7 @@ rm -rf /tmp/paru
 
 # install aur packages
 echo -e "\n=== installing aur packages ==="
-paru -S vesktop spotify music-presence-bin surfshark-client
+paru -S --noconfirm vesktop spotify music-presence-bin surfshark-client
 
 # configure grub
 echo -e "\n=== configuring grub ==="
