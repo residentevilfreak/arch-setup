@@ -16,14 +16,25 @@ to run the script, do the following:
 sudo pacman -Syu --needed git --noconfirm
 git clone https://github.com/residentevilfreak/arch-setup
 cd arch-setup
-chmod +x setup.sh
-sudo ./setup.sh
+
+## for zsh
+chmod +x zsh.sh
+sudo ./zsh.sh
+
+## for fish
+chmod +x fish.sh
+sudo ./fish.sh
+
 ```
 
 or the shorter way
 
-```sh
-curl -sL sihr.me/setup.sh | bash
+```
+## for zsh
+curl -sL sihr.me/zsh.sh | bash
+
+## for fish
+curl -sL sihr.me/fish.sh | bash
 ```
 
 ## my configuration checklist
