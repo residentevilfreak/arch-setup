@@ -55,9 +55,9 @@ if status is-interactive
     fastfetch
 end
 
-alias fetch='fastfetch'
-
 set fish_greeting
+
+alias fetch='fastfetch'
 EOF
 
 echo -e "\n=== setup complete! ==="
