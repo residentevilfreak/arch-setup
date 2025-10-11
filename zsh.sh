@@ -2,7 +2,6 @@
 #
 # zsh.sh - a script to automate post-installation tasks for my arch linux installs.
 # this script installs essential packages, an aur helper (paru), aur packages,
-# configures grub for dual-booting, and sets up zsh with plugins and aliases.
 #
 
 # --- color codes for output ---
