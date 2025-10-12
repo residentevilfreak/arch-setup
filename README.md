@@ -15,7 +15,7 @@ the setup script can be ran using one of two methods below.
 run the setup script directly:
 
 ```bash
-curl -sL sihr.me/setup.sh | bash
+bash <(curl -sL sihr.me/setup.sh)
 ```
 
 ### method 2
