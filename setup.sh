@@ -7,11 +7,11 @@ set -e
 echo "=== arch linux setup script ==="
 
 PACMAN_PKGS=(
-  amd-ucode base-devel btop dnsmasq iwd hostapd openssh pacman-contrib
-  power-profiles-daemon reflector smartmontools os-prober git sddm wget xdg-utils
-  plasma-meta ark dolphin kate kio-admin konsole packagekit-qt6 noto-fonts
-  noto-fonts-emoji fastfetch nano fish unrar firefox mpv
-  gwenview filelight filezilla obs-studio qbittorrent bitwarden steam lutris
+  amd-ucode btop dnsmasq iwd hostapd openssh pacman-contrib power-profiles-daemon 
+  reflector smartmontools os-prober git sddm wget xdg-utils plasma-meta 
+  ark dolphin kate kio-admin konsole packagekit-qt6 noto-fonts
+  noto-fonts-emoji fastfetch nano fish unrar firefox mpv gwenview 
+  filelight filezilla obs-studio qbittorrent bitwarden steam lutris
   wine mangohud gamemode nvidia-settings
 )
 
