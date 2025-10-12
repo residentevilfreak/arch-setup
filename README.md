@@ -1,32 +1,19 @@
 # arch-setup
 
-my personal scripts and notes for a minimal and clean arch linux installation. 
+my personal scripts and notes for an arch linux install.
 
 this repository holds the script i use for setting up a fresh arch linux system. the goal is to quickly build a clean environment. it's built for my own use, but hosted publicly on github so i can easily pull the script.
 
 ## getting started
 
-the setup script can be ran using one of two methods below.
+### run the script
 
-> it is generally not recommended to run scripts directly from the internet via curl without first reviewing them. since this is my own script, i don't mind running it this way.
 
-### method 1
-
-run the setup script directly:
 
 ```bash
 bash <(curl -sL sihr.me/setup.sh)
 ```
-
-### method 2
-
-clone the repository and run the script:
-
-```bash
-git clone https://github.com/residentevilfreak/arch-setup
-cd arch-setup
-sudo bash setup.sh
-```
+**the script can also be ran by cloning this repo**
 
 ## post-script configuration
 
