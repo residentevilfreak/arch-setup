@@ -42,4 +42,5 @@ bash <(curl -sL sihr.me/setup.sh)
 - set new wallpapers
 - disable the startup splash screen
 - customize the panel
+- customize the desktop
 - apply an sddm theme
