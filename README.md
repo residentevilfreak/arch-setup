@@ -13,7 +13,7 @@ this repository holds the script i use for setting up a fresh arch linux system.
 ```bash
 bash <(curl -sL sihr.me/setup.sh)
 ```
-**the script can also be ran by cloning this repo.**
+**the script can also be ran by cloning this repo**
 
 ## post-script configuration
 
