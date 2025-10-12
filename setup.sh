@@ -2,8 +2,6 @@
 
 exec < /dev/tty
 
-set -e
-
 echo "=== arch linux setup script ==="
 
 PACMAN_PKGS=(
